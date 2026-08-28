@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV Años - Jade Angélica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Pinyon+Script&family=Montserrat:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta Rose Gold & Editorial */
+            --bg-principal: #F8F5E8;       
+            --bg-white: #FFFFFF;    
+            --rose-soft: #EFA6B5;    
+            --rose-gold: #C9A23A; 
+            --rose-strong: #B52D58;
+            --text-color: #6E3045;
+            --text-muted: #8e5a6b;
+            --black-editorial: #1a1a1a;
+            
+            --transition-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            width: 100%;
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--bg-principal);
+            color: var(--text-color);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- REPRODUCTOR DE MÚSICA --- */
+        .sticky-music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--rose-gold);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(201, 162, 58, 0.4);
+            z-index: 2000;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.9);
+            transition: all 0.6s var(--transition-smooth);
+            border: none;
+        }
+
+        body.content-active .sticky-music-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .sticky-music-btn svg { width: 18px; height: 18px; fill: #fff; }
+
+        /* --- SOBRE INICIAL --- */
+        #envelope-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-principal); 
+            z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 1.2s ease-in-out, visibility 1.2s;
+        }
+
+        #envelope-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .env-tag {
+            font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 8px;
+            text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;
+        }
+
+        .env-title {
+            font-family: 'Pinyon Script', cursive; font-size: clamp(50px, 10vw, 80px);
+            color: var(--text-color); line-height: 1.2;
+        }
+
+        .envelope-wrapper {
+            position: relative; cursor: pointer; transition: transform 0.6s var(--transition-smooth);
+            margin-top: 40px;
+        }
+        
+        .envelope {
+            position: relative; width: 300px; height: 200px;
+            background-color: #fff; border-radius: 2px;
+            box-shadow: 0 15px 35px rgba(110, 48, 69, 0.1); 
+            border: 1px solid rgba(110, 48, 69, 0.05);
+        }
+
+        .envelope::before {
+            content: ''; position: absolute; top: 0; right: 0;
+            border-right: 150px solid #fdf2f4; border-top: 100px solid transparent;
+            border-bottom: 100px solid #fdf2f4; z-index: 2;
+        }
+        
+        .envelope::after {
+            content: ''; position: absolute; top: 0; left: 0;
+            border-left: 150px solid #faeaec; border-top: 100px solid transparent;
+            border-bottom: 100px solid #faeaec; z-index: 2;
+        }
+
+        .front-flap {
+            position: absolute; top: 0; left: 0;
+            border-left: 150px solid transparent; border-right: 150px solid transparent;
+            border-top: 110px solid #f2d5da; transform-origin: top;
+            transition: transform 0.9s var(--transition-smooth); z-index: 4;
+        }
+
+        .envelope-wrapper.open .front-flap { transform: rotateX(180deg); z-index: 1; }
+
+        .wax-seal {
+            position: absolute; top: 85px; left: 50%; transform: translateX(-50%);
+            width: 50px; height: 50px; background-color: var(--rose-gold);
+            border-radius: 50%; z-index: 5; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 4px 15px rgba(201, 162, 58, 0.4);
+            transition: all 0.5s ease;
+        }
+        
+        .wax-seal svg { width: 25px; height: 25px; fill: #fff; }
+        .envelope-wrapper.open .wax-seal { opacity: 0; transform: translateX(-50%) scale(0.5); }
+
+        .hint-text {
+            text-align: center; font-size: 11px; text-transform: uppercase; 
+            letter-spacing: 4px; color: var(--text-muted); margin-top: 40px; 
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        #main-invitation {
+            display: none; width: 100%; flex-direction: column; align-items: center;
+            opacity: 0; transition: opacity 2s;
+        }
+        
+        body.content-active #main-invitation { display: flex; opacity: 1; }
+
+        .section-block {
+            width: 100%; padding: 100px 20px; display: flex; flex-direction: column; align-items: center; text-align: center;
+            position: relative; overflow: hidden;
+        }
+
+        .bg-editorial { background-color: var(--bg-principal); }
+        .bg-white { background-color: var(--bg-white); }
+        .bg-black { background-color: var(--black-editorial); color: #fff; }
+
+        /* Tipografía Editorial */
+        .tag-line {
+            font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 5px;
+            text-transform: uppercase; color: var(--rose-gold); margin-bottom: 20px;
+        }
+
+        .title-script {
+            font-family: 'Pinyon Script', cursive; font-size: clamp(60px, 15vw, 90px);
+            color: var(--text-color); margin-bottom: 20px;
+        }
+
+        .bg-black .title-script { color: var(--rose-soft); }
+
+        .body-serif {
+            font-family: 'Cormorant Garamond', serif; font-size: 22px;
+            line-height: 1.6; color: var(--text-muted); font-style: italic;
+            max-width: 600px; margin-bottom: 30px;
+        }
+
+        .photo-frame {
+            width: 100%; max-width: 400px; margin: 40px auto;
+            border: 8px solid #fff; box-shadow: 0 20px 40px rgba(110, 48, 69, 0.1);
+            position: relative; transform: rotate(-2deg); transition: 0.5s;
+        }
+        .photo-frame:hover { transform: rotate(0deg) scale(1.02); }
+        .photo-frame img { width: 100%; display: block; }
+
+        /* Grid de Información */
+        .info-title {
+            font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--rose-gold); margin-bottom: 10px;
+        }
+
+        .info-data {
+            font-family: 'Cormorant Garamond', serif; font-size: 30px;
+            color: var(--text-color); margin-bottom: 5px;
+        }
+        .bg-black .info-data { color: #fff; }
+
+        /* Botones */
+        .btn-solid {
+            display: inline-block; background-color: var(--rose-gold); color: #fff;
+            padding: 15px 35px; font-family: 'Montserrat', sans-serif; font-size: 12px;
+            font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
+            text-decoration: none; border-radius: 2px; transition: 0.4s; margin-top: 20px;
+            border: none; cursor: pointer;
+        }
+        .btn-solid:hover { background-color: var(--text-color); transform: translateY(-3px); }
+
+        /* Mapas */
+        .map-box {
+            width: 100%; max-width: 500px; height: 300px; margin: 25px auto;
+            border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .map-box iframe { width: 100%; height: 100%; border: none; }
+
+        /* Animaciones on Scroll */
+        .anim { opacity: 0; transform: translateY(30px); transition: 1.2s var(--transition-smooth); }
+        .anim.in-view { opacity: 1; transform: translateY(0); }
+
+        /* Calendario */
+        .calendar-wrapper {
+            background: #fff; padding: 30px; border-radius: 4px; margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); max-width: 320px;
+        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-top: 20px;}
+        .cal-day { font-size: 16px; padding: 5px; }
+        .cal-day.active { background: var(--rose-gold); color: #fff; border-radius: 50%; }
+
+        /* Itinerario */
+        .itinerary-item { margin-bottom: 25px; }
+        .itinerary-time { font-family: 'Cinzel'; color: var(--rose-gold); font-size: 18px; }
+
+        /* Dress Code Badge */
+        .dress-badge {
+            border: 1px solid var(--rose-gold); padding: 40px 30px; border-radius: 100px 100px 0 0;
+            margin-top: 30px; max-width: 350px;
+        }
+
+        /* Forms */
+        .form-group { width: 100%; max-width: 400px; margin-bottom: 20px; }
+        .input-line {
+            width: 100%; padding: 15px; background: transparent; border: none;
+            border-bottom: 1px solid var(--rose-soft); font-family: 'Montserrat';
+            text-align: center; outline: none; font-size: 16px; color: var(--text-color);
+        }
+        .input-line:focus { border-bottom-color: var(--rose-gold); }
+
+        /* Ticket */
+        .ticket-card {
+            background: #fff; padding: 40px 20px; border: 1px dashed var(--rose-gold);
+            max-width: 350px; margin: 30px auto; position: relative;
+        }
+
+        /* Ajustes Móvil */
+        @media (max-width: 480px) {
+            .section-block { padding: 70px 15px; }
+            .title-script { font-size: 55px; }
+            .info-data { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio> <button id="music-btn" class="sticky-music-btn" onclick="toggleMusic()">
+        <svg id="music-icon-play" style="display:none;" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <svg id="music-icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
+    <div id="envelope-screen">
+        <div class="env-tag anim in-view">Mis XV Años</div>
+        <h1 class="env-title anim in-view">Jade Angélica</h1>
+        <div class="envelope-wrapper anim in-view" onclick="openEnvelope()">
+            <div class="front-flap"></div>
+            <div class="wax-seal">
+                <svg viewBox="0 0 24 24"><path d="M12 2L15 9H22L16.5 13.5L18.5 21L12 17L5.5 21L7.5 13.5L2 9H9L12 2Z"/></svg>
+            </div>
+            <div class="envelope"></div>
+        </div>
+        <div class="hint-text">Tocar para abrir</div>
+    </div>
+
+    <main id="main-invitation">
+        
+        <section class="section-block bg-editorial">
+            <div class="tag-line anim">Estás cordialmente invitado</div>
+            <h1 class="title-script anim">Jade Angélica</h1>
+            <p class="body-serif anim">
+                "Celebremos este momento tan especial con música, baile, alegría y recuerdos inolvidables."
+            </p>
+            <div class="photo-frame anim">
+                <img src="https://images.unsplash.com/photo-1592816301322-263a99071060?auto=format&fit=crop&q=80&w=1000" alt="Jade Angélica">
+            </div>
+        </section>
+
+        <section class="section-block bg-white">
+            <div class="info-title anim">En compañía de mi madre</div>
+            <div class="info-data anim">Stefany Cortes</div>
+            <div style="margin: 20px 0; color: var(--rose-gold);" class="anim">✦</div>
+            <div class="info-title anim">Y mis abuelitos</div>
+            <div class="info-data anim">Maricela López</div>
+            <div class="info-data anim">Víctor Cortes</div>
+        </section>
+
+        <section class="section-block bg-editorial">
+            <div class="tag-line anim">Reserva la fecha</div>
+            <div class="info-data anim" style="font-size: 45px;">01 de Noviembre</div>
+            <div class="tag-line anim" style="margin-top: 10px;">2026</div>
+
+            <div class="calendar-wrapper anim">
+                <div class="info-title">Noviembre 2026</div>
+                <div class="calendar-grid">
+                    <div class="cal-day">D</div><div class="cal-day">L</div><div class="cal-day">M</div><div class="cal-day">M</div><div class="cal-day">J</div><div class="cal-day">V</div><div class="cal-day">S</div>
+                    <div class="cal-day active">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
+                    </div>
+            </div>
+
+            <div class="tag-line anim" style="margin-top: 40px;">Itinerario</div>
+            <div class="itinerary-item anim">
+                <div class="itinerary-time">5:50 PM</div>
+                <div class="info-data" style="font-size: 24px;">Misa de Acción de Gracias</div>
+            </div>
+            <div class="itinerary-item anim">
+                <div class="itinerary-time">7:30 PM</div>
+                <div class="info-data" style="font-size: 24px;">Recepción en el Salón</div>
+            </div>
+        </section>
+
+        <section class="section-block bg-white">
+            <div class="info-title anim">Ceremonia Religiosa</div>
+            <div class="info-data anim">Parroquia de Nuestra Señora de San Juan de los Lagos</div>
+            <div class="map-box anim">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.803023549442!2d-98.99593379999999!3d19.3776799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e2c388d28ae5%3A0x77d55f211d8d4d17!2sParroquia%20de%20Nuestra%20Se%C3%B1ora%20de%20San%20Juan%20de%20los%20Lagos!5e0!3m2!1ses-419!2smx!4v1787888245708!5m2!1ses-419!2smx"></iframe>
+            </div>
+            <a href="https://maps.app.goo.gl/ivFWdi2UWAoz3RMWA?g_st=ic" target="_blank" class="btn-solid anim">Ver Ubicación</a>
+
+            <div style="height: 80px;"></div>
+
+            <div class="info-title anim">Recepción</div>
+            <div class="info-data anim">Salón La Hacienda</div>
+            <div class="map-box anim">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.273687705448!2d-99.03013661733682!3d19.40057729497962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fd4f3eed75f3%3A0x46e5c9224b9f980b!2sSalon%20La%20Hacienda!5e0!3m2!1ses-419!2smx!4v1787888303528!5m2!1ses-419!2smx"></iframe>
+            </div>
+            <a href="https://maps.app.goo.gl/thn26VAouoAAe4yT6?g_st=ic" target="_blank" class="btn-solid anim">Ver Ubicación</a>
+        </section>
+
+        <section class="section-block bg-black">
+            <div class="info-title anim" style="color: var(--rose-soft);">Código de Vestimenta</div>
+            <div class="title-script anim" style="font-size: 50px;">Formal - Casual</div>
+            <div class="dress-badge anim">
+                <p class="body-serif" style="color: #ccc;">
+                    Tu elegancia es importante. <br>
+                    <strong>Favor de reservar los colores:</strong> <br>
+                    Rosa, Dorado y Champagne <br>
+                    exclusivamente para la festejada.
+                </p>
+            </div>
+        </section>
+
+        <section class="section-block bg-white">
+            <div class="info-title anim">Mesa de Regalos</div>
+            <div class="info-data anim">Lluvia de Sobres</div>
+            <p class="body-serif anim">
+                "El obsequio más hermoso es tu presencia. Si deseas tener un detalle adicional, habrá un buzón en la recepción para tu obsequio en efectivo."
+            </p>
+
+            <div style="height: 60px;"></div>
+
+            <div class="info-title anim">Sugerir Canción</div>
+            <div class="anim" style="width: 100%; max-width: 450px; margin: 20px 0;">
+                <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2BOxf8YKYEaaw9jlPt8lmU?utm_source=generator&si=02e3dbda43cc4540" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+            <a href="https://open.spotify.com/playlist/2BOxf8YKYEaaw9jlPt8lmU?si=09edb35a9f284e8c&pt=7094df027ab14c100e847e23b25c69a7" target="_blank" class="btn-solid anim">Agregar a la Playlist</a>
+        </section>
+
+        <section class="section-block bg-editorial">
+            <div class="tag-line anim">Galería en Vivo</div>
+            <p class="body-serif anim">
+                Captura la magia de esta noche y comparte tus fotos directamente en nuestro álbum digital.
+            </p>
+            <a href="https://drive.google.com/drive/folders/1LyUeO7r8_YR9C2rty0oi8R3Q8AyniRvs?usp=drive_link" target="_blank" class="btn-solid anim">Subir mis fotos</a>
+        </section>
+
+        <section class="section-block bg-white" id="rsvp-section">
+            <div class="tag-line anim">RSVP</div>
+            <div class="title-script anim" style="font-size: 60px;">Jade Angélica</div>
+            <p class="body-serif anim">Por favor confirma antes del 15 de Octubre</p>
+
+            <div id="ticket-vip" style="display: none;" class="anim">
+                <div class="ticket-card">
+                    <div class="info-title">Pases Reservados</div>
+                    <div id="ticket-count" style="font-size: 60px; font-family: 'Cinzel';">0</div>
+                    <div id="guest-name" style="font-style: italic;">Invitado</div>
+                </div>
+            </div>
+
+            <div class="form-group anim">
+                <input type="text" id="rsvp-name" class="input-line" placeholder="Tu nombre">
+            </div>
+            <div class="form-group anim">
+                <select id="rsvp-status" class="input-line">
+                    <option value="" disabled selected>¿Asistirás?</option>
+                    <option value="yes">Sí, asistiré</option>
+                    <option value="no">No podré asistir</option>
+                </select>
+            </div>
+            <div class="form-group anim">
+                <select id="rsvp-guests" class="input-line" style="display:none;"></select>
+            </div>
+
+            <button onclick="sendRSVP()" class="btn-solid anim">Confirmar Asistencia</button>
+
+            <div style="height: 80px;"></div>
+
+            <div class="info-title anim">Buenos Deseos</div>
+            <div class="form-group anim">
+                <textarea id="wish-msg" class="input-line" style="height: 100px;" placeholder="Escribe un mensaje..."></textarea>
+            </div>
+            <button onclick="sendWish()" class="btn-solid anim">Enviar Mensaje</button>
+
+            <p class="body-serif anim" style="margin-top: 80px; font-size: 16px;">
+                Su presencia, cariño y buenos deseos harán de este día un momento inolvidable para mí.
+            </p>
+        </section>
+
+    </main>
+
+    <script>
+        const WHATSAPP_NUM = "525624255711";
+
+        // MÚSICA
+        const bgMusic = document.getElementById('bg-music');
+        let isPlaying = false;
+        function toggleMusic() {
+            if (isPlaying) bgMusic.pause(); else bgMusic.play();
+            isPlaying = !isPlaying;
+            document.getElementById('music-icon-play').style.display = isPlaying ? 'none' : 'block';
+            document.getElementById('music-icon-pause').style.display = isPlaying ? 'block' : 'none';
+        }
+
+        // SOBRE
+        function openEnvelope() {
+            document.querySelector('.envelope-wrapper').classList.add('open');
+            setTimeout(() => {
+                document.getElementById('envelope-screen').classList.add('fade-out');
+                document.body.classList.add('content-active');
+                bgMusic.play(); isPlaying = true;
+            }, 1000);
+        }
+
+        // ANIMACIONES SCROLL
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('in-view');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+        // PASES DINÁMICOS (Lógica de URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const guestNameParam = urlParams.get('n');
+        const guestPasesParam = urlParams.get('p');
+
+        if(guestNameParam && guestPasesParam) {
+            document.getElementById('ticket-vip').style.display = 'block';
+            document.getElementById('guest-name').innerText = guestNameParam;
+            document.getElementById('ticket-count').innerText = guestPasesParam;
+            document.getElementById('rsvp-name').value = guestNameParam;
+            
+            const rsvpStatus = document.getElementById('rsvp-status');
+            const rsvpGuests = document.getElementById('rsvp-guests');
+            
+            rsvpStatus.addEventListener('change', (e) => {
+                if(e.target.value === 'yes') {
+                    rsvpGuests.style.display = 'block';
+                    rsvpGuests.innerHTML = '<option value="" disabled selected>¿Cuántos asisten?</option>';
+                    for(let i=1; i<=guestPasesParam; i++) {
+                        rsvpGuests.innerHTML += `<option value="${i}">${i}</option>`;
+                    }
+                } else rsvpGuests.style.display = 'none';
+            });
+        }
+
+        // WHATSAPP RSVP
+        function sendRSVP() {
+            const name = document.getElementById('rsvp-name').value;
+            const status = document.getElementById('rsvp-status').value;
+            const num = document.getElementById('rsvp-guests').value || "0";
+            if(!name || !status) return alert("Completa los datos");
+
+            let msg = status === 'yes' 
+                ? `¡Hola Jade! Confirmo mi asistencia. Seremos ${num} personas.`
+                : `Hola Jade, gracias por la invitación pero no podré asistir.`;
+            
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`);
+        }
+
+        function sendWish() {
+            const name = document.getElementById('rsvp-name').value;
+            const wish = document.getElementById('wish-msg').value;
+            if(!wish) return alert("Escribe un mensaje");
+            window.open(`https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent("Hola Jade, soy " + name + ": " + wish)}`);
+        }
+    </script>
+</body>
+</html>
