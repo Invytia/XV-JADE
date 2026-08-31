@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jade Angélica - Mis XV Años</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
@@ -17,7 +17,6 @@
             --burgundy-light: #90475f;
             --bg-cream: #FDF9F6;
             --bg-white: #ffffff;
-            /* Secciones más rosas y vibrantes */
             --bg-pink-section: #F8D7DA; 
             --transition: all 1.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -115,7 +114,15 @@
         .flourish { width: 220px; margin: 30px auto; opacity: 0.6; }
         .italic-body { font-style: italic; font-size: 22px; line-height: 1.7; color: var(--burgundy-light); margin-bottom: 30px; }
         .label-gold { font-family: 'Montserrat'; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 12px; display: block; }
-        .names-val { font-size: 34px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2; }
+        
+        /* Modificación para los nombres de familiares */
+        .names-val { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 38px; 
+            color: var(--burgundy); 
+            margin-bottom: 40px; 
+            line-height: 1.2; 
+        }
 
         /* CALENDARIO WIDGET */
         .calendar-widget { width: 100%; max-width: 330px; margin: 40px auto; background: #fff; padding: 30px 20px; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.03); }
@@ -136,8 +143,11 @@
         .map-iframe { width: 100%; height: 300px; border: none; margin: 30px 0 50px 0; filter: contrast(1.1) saturate(0.9); }
 
         /* DRESS CODE */
-        .dress-badge { border: 1px solid var(--rose-gold); padding: 60px 25px; border-radius: 150px 150px 0 0; background: #fff; margin: 30px 0; width: 100%; max-width: 340px; }
+        .dress-badge { border: 1px solid var(--rose-gold); padding: 50px 25px; border-radius: 150px 150px 0 0; background: #fff; margin: 30px 0; width: 100%; max-width: 340px; }
         .dress-title { font-size: 36px; font-weight: 700; background: var(--rose-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
+        
+        /* Imagen Dress Code con filtro para quitar fondo blanco */
+        .dress-img { width: 70px; margin-bottom: 20px; mix-blend-mode: multiply; }
 
         /* --- RSVP SERIF STACKED --- */
         .rsvp-serif-stacked {
@@ -211,11 +221,13 @@
                 </p>
                 <div style="margin: 40px 0; color: var(--gold-soft); letter-spacing: 8px;" class="reveal">✦ ✦ ✦</div>
                 
-                <span class="label-gold reveal">En compañía de mi madre</span>
-                <div class="names-val reveal">Stefany Cortes</div>
+                <span class="label-gold reveal" style="font-size: 14px; margin-bottom: 25px;">Mis personas favoritas:</span>
                 
-                <span class="label-gold reveal">Y mis abuelitos</span>
-                <div class="names-val reveal">Maricela López <br> & Víctor Cortes</div>
+                <span class="label-gold reveal">Mi mamá</span>
+                <div class="names-val reveal">Stefany Cortes Lopez</div>
+                
+                <span class="label-gold reveal">Mis abuelos</span>
+                <div class="names-val reveal">Víctor Cortes Bautista <br> & Maricela López Flores</div>
             </section>
 
             <section class="section bg-cream">
@@ -240,13 +252,13 @@
             <section class="section bg-white" style="padding-left:0; padding-right:0;">
                 <div style="padding: 0 30px;">
                     <span class="label-gold reveal">Ceremonia Religiosa — 5:50 PM</span>
-                    <div class="names-val reveal" style="font-size: 26px;">Parroquia de Ntra. Señora <br> de San Juan de los Lagos</div>
+                    <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2;">Parroquia de Ntra. Señora <br> de San Juan de los Lagos</div>
                 </div>
                 <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.803023549442!2d-98.99593379999999!3d19.3776799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e2c388d28ae5%3A0x77d55f211d8d4d17!2sParroquia%20de%20Nuestra%20Se%C3%B1ora%20de%20San%20Juan%20de%20los%20Lagos!5e0!3m2!1ses-419!2smx!4v1787888245708!5m2!1ses-419!2smx"></iframe>
 
                 <div style="padding: 0 30px;">
                     <span class="label-gold reveal">Recepción — 7:30 PM</span>
-                    <div class="names-val reveal" style="font-size: 26px;">Salón La Hacienda</div>
+                    <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2;">Salón La Hacienda</div>
                 </div>
                 <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.273687705448!2d-99.03013661733682!3d19.40057729497962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fd4f3eed75f3%3A0x46e5c9224b9f980b!2sSalon%20La%20Hacienda!5e0!3m2!1ses-419!2smx!4v1787888303528!5m2!1ses-419!2smx"></iframe>
             </section>
@@ -254,7 +266,8 @@
             <section class="section bg-pink">
                 <span class="label-gold reveal">Código de Vestimenta</span>
                 <div class="dress-badge reveal">
-                    <div class="dress-title">FORMAL - CASUAL</div>
+                    <img src="assets/dress.png" alt="Vestido Formal" class="dress-img">
+                    <div class="dress-title">FORMAL</div>
                     <p class="italic-body" style="font-size: 18px; margin-top: 25px;">
                         Favor de reservar los colores <br> <strong>Rosa, Dorado y Champagne</strong> <br> para la festejada.
                     </p>
@@ -264,7 +277,7 @@
             <section class="section bg-white">
                 <div class="reveal">
                     <span class="label-gold">Mesa de Regalos</span>
-                    <div class="names-val">Lluvia de Sobres</div>
+                    <div class="names-val" style="font-size: 32px;">Lluvia de Sobres</div>
                     <i class="fa-regular fa-envelope" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 20px;"></i>
                 </div>
 
@@ -272,7 +285,7 @@
 
                 <div class="reveal">
                     <span class="label-gold">Ambiente</span>
-                    <div class="names-val">Mi Playlist</div>
+                    <div class="names-val" style="font-size: 32px;">Mi Playlist</div>
                     <i class="fa-brands fa-spotify" style="font-size: 60px; color: #1DB954; margin-bottom: 25px;"></i>
                     <div style="width: 100%; max-width: 360px; margin: 0 auto 20px;">
                         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2BOxf8YKYEaaw9jlPt8lmU?utm_source=generator&si=02e3dbda43cc4540" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
@@ -283,7 +296,7 @@
 
                 <div class="reveal">
                     <span class="label-gold">Recuerdos</span>
-                    <div class="names-val">Galería en Vivo</div>
+                    <div class="names-val" style="font-size: 32px;">Galería en Vivo</div>
                     <i class="fa-solid fa-camera-retro" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 25px;"></i>
                     <br>
                     <a href="https://drive.google.com/drive/folders/1LyUeO7r8_YR9C2rty0oi8R3Q8AyniRvs?usp=drive_link" class="btn-premium">Subir fotos</a>
