@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jade Angélica - Mis XV Años</title>
     
-    <!-- Se añadió Dancing Script para los nombres -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Montserrat:wght@300;400;600&family=Pinyon+Script&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
@@ -44,6 +43,24 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            overflow: hidden;
+        }
+
+        /* --- EFECTO GLITTER --- */
+        .glitter-particle {
+            position: absolute;
+            background-color: var(--gold-soft);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10;
+            box-shadow: 0 0 4px rgba(255,255,255,0.8);
+            animation: twinkle linear infinite;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0; transform: scale(0) translateY(0) rotate(0deg); }
+            50% { opacity: 0.8; transform: scale(1.2) translateY(-15px) rotate(180deg); }
+            100% { opacity: 0; transform: scale(0) translateY(-30px) rotate(360deg); }
         }
 
         /* --- REPRODUCTOR DE MÚSICA --- */
@@ -67,7 +84,7 @@
         }
         #envelope-screen.fade-out { transform: translateY(-100vh); opacity: 0; pointer-events: none; }
 
-        .env-tag { font-family: 'Montserrat'; font-size: 13px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 20px; }
+        .env-tag { font-family: 'Montserrat'; font-size: 15px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 20px; }
         .env-name { font-family: 'Pinyon Script', cursive; font-size: 75px; color: var(--burgundy); margin-bottom: 50px; text-align: center;}
 
         .envelope-wrapper { position: relative; cursor: pointer; width: 300px; height: 210px; }
@@ -100,7 +117,7 @@
             color: rgba(239, 166, 181, 0.2); z-index: 0; pointer-events: none;
         }
 
-        .hero-tag { font-family: 'Montserrat'; font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 25px; position: relative; z-index: 1;}
+        .hero-tag { font-family: 'Montserrat'; font-size: 14px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 25px; position: relative; z-index: 1;}
         .hero-name { font-family: 'Pinyon Script', cursive; font-size: clamp(70px, 18vw, 100px); color: var(--burgundy); line-height: 0.8; margin: 10px 0; position: relative; z-index: 1; }
         
         .polaroid-frame {
@@ -114,12 +131,14 @@
         /* --- DISEÑO EDITORIAL --- */
         .flourish { width: 220px; margin: 30px auto; opacity: 0.6; }
         .italic-body { font-style: italic; font-size: 22px; line-height: 1.7; color: var(--burgundy-light); margin-bottom: 30px; }
-        .label-gold { font-family: 'Montserrat'; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 12px; display: block; }
         
-        /* Modificación para los nombres de familiares - TAMAÑO AUMENTADO A 48px */
+        /* Modificación para los textos dorados - TAMAÑO AUMENTADO A 14px */
+        .label-gold { font-family: 'Montserrat'; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 12px; display: block; font-weight: 600;}
+        
+        /* Modificación para los nombres de familiares - TAMAÑO AJUSTADO A 40px */
         .names-val { 
             font-family: 'Dancing Script', cursive; 
-            font-size: 48px; 
+            font-size: 40px; 
             color: var(--burgundy); 
             margin-bottom: 40px; 
             line-height: 1.2; 
@@ -128,7 +147,7 @@
         /* CALENDARIO WIDGET */
         .calendar-widget { width: 100%; max-width: 330px; margin: 40px auto; background: #fff; padding: 30px 20px; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.03); }
         .cal-h { font-family: 'Montserrat'; font-weight: 600; color: var(--gold-soft); padding-bottom: 12px; border-bottom: 1px solid rgba(201,162,58,0.2); }
-        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; font-family: 'Montserrat'; font-size: 13px; margin-top: 25px;}
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; font-family: 'Montserrat'; font-size: 14px; margin-top: 25px;}
         .cal-day { padding: 10px 0; color: var(--burgundy); position: relative; z-index: 1; }
         .cal-day.active { color: #fff; font-weight: 600; }
         .cal-day.active::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 38px; height: 38px; background: var(--rose-gold-metallic); border-radius: 50%; z-index: -1; box-shadow: 0 5px 15px rgba(239, 166, 181, 0.4); }
@@ -137,17 +156,16 @@
             display: inline-block; padding: 20px 45px; background: var(--rose-gold-metallic); color: #fff;
             text-transform: uppercase; font-family: 'Montserrat'; font-size: 12px; letter-spacing: 3px;
             text-decoration: none; border-radius: 50px; border: none; cursor: pointer;
-            box-shadow: 0 10px 25px rgba(201, 162, 58, 0.3); transition: 0.4s;
+            box-shadow: 0 10px 25px rgba(201, 162, 58, 0.3); transition: 0.4s; position: relative; z-index: 20;
         }
 
         /* MAPAS SIN LÍMITES */
-        .map-iframe { width: 100%; height: 300px; border: none; margin: 30px 0 50px 0; filter: contrast(1.1) saturate(0.9); }
+        .map-iframe { width: 100%; height: 300px; border: none; margin: 30px 0 50px 0; filter: contrast(1.1) saturate(0.9); position: relative; z-index: 20; }
 
         /* DRESS CODE */
-        .dress-badge { border: 1px solid var(--rose-gold); padding: 50px 25px; border-radius: 150px 150px 0 0; background: #fff; margin: 30px 0; width: 100%; max-width: 340px; }
+        .dress-badge { border: 1px solid var(--rose-gold); padding: 50px 25px; border-radius: 150px 150px 0 0; background: #fff; margin: 30px 0; width: 100%; max-width: 340px; position: relative; z-index: 20;}
         .dress-title { font-size: 36px; font-weight: 700; background: var(--rose-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
         
-        /* Imagen Dress Code con filtro para quitar fondo blanco */
         .dress-img { width: 70px; margin-bottom: 20px; mix-blend-mode: multiply; }
 
         /* --- RSVP SERIF STACKED --- */
@@ -167,7 +185,7 @@
         .input-elegant {
             width: 100%; max-width: 350px; padding: 18px; background: transparent; border: none;
             border-bottom: 1px solid #dcc6cc; font-family: 'Montserrat'; font-size: 15px;
-            text-align: center; color: var(--burgundy); outline: none; margin-bottom: 30px;
+            text-align: center; color: var(--burgundy); outline: none; margin-bottom: 30px; position: relative; z-index: 20;
         }
         .input-elegant::placeholder { font-style: italic; color: #bba4ae; }
 
@@ -195,7 +213,7 @@
             <div class="crown-seal"><i class="fa-solid fa-crown"></i></div>
             <div class="envelope-base"></div>
         </div>
-        <div style="margin-top: 40px; font-family: 'Montserrat'; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; animation: pulse 2s infinite;">Tocar para abrir</div>
+        <div style="margin-top: 40px; font-family: 'Montserrat'; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; animation: pulse 2s infinite; font-weight: 600; color: var(--burgundy);">Tocar para abrir</div>
     </div>
 
     <div class="invitation-card">
@@ -204,7 +222,7 @@
             <section class="section bg-cream">
                 <div class="hero-bg-text">XV</div>
                 <div class="hero-tag reveal">Estás invitado</div>
-                <div class="label-gold reveal" style="font-size: 15px;">Mis XV Años</div>
+                <div class="label-gold reveal" style="font-size: 16px;">Mis XV Años</div>
                 <h1 class="hero-name reveal">Jade Angélica</h1>
                 
                 <div class="polaroid-frame reveal">
@@ -222,8 +240,7 @@
                 </p>
                 <div style="margin: 40px 0; color: var(--gold-soft); letter-spacing: 8px;" class="reveal">✦ ✦ ✦</div>
                 
-                <!-- Cambios en los nombres y jerarquía -->
-                <span class="label-gold reveal" style="font-size: 14px; margin-bottom: 25px;">Mis personas favoritas:</span>
+                <span class="label-gold reveal" style="font-size: 17px; margin-bottom: 25px; color: var(--burgundy);">Mis personas favoritas:</span>
                 
                 <span class="label-gold reveal">Mi mamá</span>
                 <div class="names-val reveal">Stefany Cortes Lopez</div>
@@ -238,7 +255,7 @@
                 <span class="label-gold reveal">Domingo — 2026</span>
 
                 <div class="calendar-widget reveal">
-                    <div style="font-family:'Montserrat'; letter-spacing:4px; font-size:14px; margin-bottom:25px; text-transform: uppercase;">Noviembre 2026</div>
+                    <div style="font-family:'Montserrat'; letter-spacing:4px; font-size:15px; margin-bottom:25px; text-transform: uppercase;">Noviembre 2026</div>
                     <div class="cal-grid">
                         <div class="cal-h">D</div><div class="cal-h">L</div><div class="cal-h">M</div><div class="cal-h">M</div><div class="cal-h">J</div><div class="cal-h">V</div><div class="cal-h">S</div>
                         <div class="cal-day active">1</div><div class="cal-day">2</div><div class="cal-day">3</div><div class="cal-day">4</div><div class="cal-day">5</div><div class="cal-day">6</div><div class="cal-day">7</div>
@@ -268,7 +285,6 @@
             <section class="section bg-pink">
                 <span class="label-gold reveal">Código de Vestimenta</span>
                 <div class="dress-badge reveal">
-                    <!-- Inserción de la imagen solicitada -->
                     <img src="assets/dress.png" alt="Vestido Formal" class="dress-img">
                     <div class="dress-title">FORMAL</div>
                     <p class="italic-body" style="font-size: 18px; margin-top: 25px;">
@@ -280,7 +296,7 @@
             <section class="section bg-white">
                 <div class="reveal">
                     <span class="label-gold">Mesa de Regalos</span>
-                    <div class="names-val" style="font-size: 32px;">Lluvia de Sobres</div>
+                    <div class="names-val" style="font-size: 36px;">Lluvia de Sobres</div>
                     <i class="fa-regular fa-envelope" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 20px;"></i>
                 </div>
 
@@ -288,10 +304,10 @@
 
                 <div class="reveal">
                     <span class="label-gold">Ambiente</span>
-                    <div class="names-val" style="font-size: 32px;">Mi Playlist</div>
+                    <div class="names-val" style="font-size: 36px;">Mi Playlist</div>
                     <i class="fa-brands fa-spotify" style="font-size: 60px; color: #1DB954; margin-bottom: 25px;"></i>
                     <div style="width: 100%; max-width: 360px; margin: 0 auto 20px;">
-                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2BOxf8YKYEaaw9jlPt8lmU?utm_source=generator&si=02e3dbda43cc4540" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
+                        <iframe style="border-radius:12px; position:relative; z-index:20;" src="https://open.spotify.com/embed/playlist/2BOxf8YKYEaaw9jlPt8lmU?utm_source=generator&si=02e3dbda43cc4540" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
 
@@ -299,7 +315,7 @@
 
                 <div class="reveal">
                     <span class="label-gold">Recuerdos</span>
-                    <div class="names-val" style="font-size: 32px;">Galería en Vivo</div>
+                    <div class="names-val" style="font-size: 36px;">Galería en Vivo</div>
                     <i class="fa-solid fa-camera-retro" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 25px;"></i>
                     <br>
                     <a href="https://drive.google.com/drive/folders/1LyUeO7r8_YR9C2rty0oi8R3Q8AyniRvs?usp=drive_link" class="btn-premium">Subir fotos</a>
@@ -341,6 +357,41 @@
     <script>
         const WHATSAPP = "525624255711";
         let music;
+
+        /* Generador de Glitter Animado */
+        function createGlitter() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                const numParticles = 15; // Cantidad de brillitos por sección
+                for (let i = 0; i < numParticles; i++) {
+                    let particle = document.createElement('div');
+                    particle.classList.add('glitter-particle');
+                    
+                    let size = Math.random() * 4 + 2; // Tamaño entre 2px y 6px
+                    let posX = Math.random() * 100; // Posición X
+                    let posY = Math.random() * 100; // Posición Y
+                    let duration = Math.random() * 3 + 2; // Duración de la animación (2s - 5s)
+                    let delay = Math.random() * 5; // Retraso
+                    
+                    // Alternar colores entre dorado y rosa
+                    if(Math.random() > 0.5) {
+                        particle.style.backgroundColor = '#EFA6B5'; 
+                    }
+                    
+                    particle.style.width = size + 'px';
+                    particle.style.height = size + 'px';
+                    particle.style.left = posX + '%';
+                    particle.style.top = posY + '%';
+                    particle.style.animationDuration = duration + 's';
+                    particle.style.animationDelay = delay + 's';
+                    
+                    section.appendChild(particle);
+                }
+            });
+        }
+        
+        // Ejecutar los brillitos al cargar la página
+        window.addEventListener('DOMContentLoaded', createGlitter);
 
         function toggleMusic() {
             if (!music) music = document.getElementById('bg-music');
