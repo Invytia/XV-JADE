@@ -46,21 +46,41 @@
             overflow: hidden;
         }
 
-        /* --- EFECTO GLITTER --- */
-        .glitter-particle {
+        /* --- NUEVO EFECTO DE DESTELLOS Y LUCES --- */
+        
+        /* Estrella de 4 puntas real (Destello) */
+        .sparkle-star {
             position: absolute;
             background-color: var(--gold-soft);
+            /* Crea la forma de destello de luz */
+            clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
+            pointer-events: none;
+            z-index: 10;
+            animation: twinkle-star linear infinite;
+        }
+        .sparkle-star.pink { background-color: #EFA6B5; }
+        .sparkle-star.white { background-color: #ffffff; }
+
+        /* Orbes de luz resplandecientes */
+        .sparkle-dot {
+            position: absolute;
             border-radius: 50%;
             pointer-events: none;
             z-index: 10;
-            box-shadow: 0 0 4px rgba(255,255,255,0.8);
-            animation: twinkle linear infinite;
+            box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.8);
+            animation: twinkle-dot linear infinite;
         }
 
-        @keyframes twinkle {
-            0% { opacity: 0; transform: scale(0) translateY(0) rotate(0deg); }
-            50% { opacity: 0.8; transform: scale(1.2) translateY(-15px) rotate(180deg); }
-            100% { opacity: 0; transform: scale(0) translateY(-30px) rotate(360deg); }
+        @keyframes twinkle-star {
+            0% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.5) rotate(90deg); filter: drop-shadow(0 0 8px rgba(255,255,255,0.9)); }
+            100% { opacity: 0; transform: scale(0) rotate(180deg); }
+        }
+
+        @keyframes twinkle-dot {
+            0% { opacity: 0; transform: scale(0) translateY(0); }
+            50% { opacity: 0.9; transform: scale(1.2) translateY(-15px); }
+            100% { opacity: 0; transform: scale(0) translateY(-30px); }
         }
 
         /* --- REPRODUCTOR DE MÚSICA --- */
@@ -81,13 +101,14 @@
             background-color: var(--bg-cream); z-index: 6000;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.2s;
+            overflow: hidden;
         }
         #envelope-screen.fade-out { transform: translateY(-100vh); opacity: 0; pointer-events: none; }
 
         .env-tag { font-family: 'Montserrat'; font-size: 15px; letter-spacing: 6px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 20px; }
         .env-name { font-family: 'Pinyon Script', cursive; font-size: 75px; color: var(--burgundy); margin-bottom: 50px; text-align: center;}
 
-        .envelope-wrapper { position: relative; cursor: pointer; width: 300px; height: 210px; }
+        .envelope-wrapper { position: relative; cursor: pointer; width: 300px; height: 210px; z-index: 20;}
         .envelope-base { position: absolute; width: 100%; height: 100%; background: #fff; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
         .envelope-base::before { content: ''; position: absolute; top: 0; right: 0; border-right: 160px solid #f9f0f2; border-top: 105px solid transparent; border-bottom: 105px solid #f9f0f2; z-index: 2; }
         .envelope-base::after { content: ''; position: absolute; top: 0; left: 0; border-left: 160px solid #fef7f8; border-top: 105px solid transparent; border-bottom: 105px solid #fef7f8; z-index: 2; }
@@ -105,7 +126,7 @@
         /* --- HERO IMPACTANTE --- */
         #main-content { display: none; width: 100%; flex-direction: column; }
         
-        .section { width: 100%; padding: 100px 30px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; }
+        .section { width: 100%; padding: 100px 30px; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden; }
         .bg-white { background-color: var(--bg-white); }
         .bg-cream { background-color: var(--bg-cream); }
         .bg-pink { background-color: var(--bg-pink-section); }
@@ -123,29 +144,28 @@
         .polaroid-frame {
             width: 85%; max-width: 320px; margin: 50px auto; background: #fff;
             padding: 15px 15px 50px 15px; box-shadow: 0 25px 60px rgba(110, 48, 69, 0.15);
-            transform: rotate(-3deg); position: relative; z-index: 1;
+            transform: rotate(-3deg); position: relative; z-index: 20;
         }
         .polaroid-frame img { width: 100%; border: 1px solid #eee; display: block; filter: contrast(1.05); }
         .polaroid-frame::after { content: 'Jade Angélica'; position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-family: 'Pinyon Script'; font-size: 28px; color: var(--burgundy-light); }
 
         /* --- DISEÑO EDITORIAL --- */
-        .flourish { width: 220px; margin: 30px auto; opacity: 0.6; }
-        .italic-body { font-style: italic; font-size: 22px; line-height: 1.7; color: var(--burgundy-light); margin-bottom: 30px; }
+        .flourish { width: 220px; margin: 30px auto; opacity: 0.6; position: relative; z-index: 20; }
+        .italic-body { font-style: italic; font-size: 22px; line-height: 1.7; color: var(--burgundy-light); margin-bottom: 30px; position: relative; z-index: 20;}
         
-        /* Modificación para los textos dorados - TAMAÑO AUMENTADO A 14px */
-        .label-gold { font-family: 'Montserrat'; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 12px; display: block; font-weight: 600;}
+        .label-gold { font-family: 'Montserrat'; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 12px; display: block; font-weight: 600; position: relative; z-index: 20;}
         
-        /* Modificación para los nombres de familiares - TAMAÑO AJUSTADO A 40px */
         .names-val { 
             font-family: 'Dancing Script', cursive; 
             font-size: 40px; 
             color: var(--burgundy); 
             margin-bottom: 40px; 
             line-height: 1.2; 
+            position: relative; z-index: 20;
         }
 
         /* CALENDARIO WIDGET */
-        .calendar-widget { width: 100%; max-width: 330px; margin: 40px auto; background: #fff; padding: 30px 20px; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.03); }
+        .calendar-widget { width: 100%; max-width: 330px; margin: 40px auto; background: #fff; padding: 30px 20px; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.03); position: relative; z-index: 20; }
         .cal-h { font-family: 'Montserrat'; font-weight: 600; color: var(--gold-soft); padding-bottom: 12px; border-bottom: 1px solid rgba(201,162,58,0.2); }
         .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; font-family: 'Montserrat'; font-size: 14px; margin-top: 25px;}
         .cal-day { padding: 10px 0; color: var(--burgundy); position: relative; z-index: 1; }
@@ -177,6 +197,7 @@
             color: var(--burgundy);
             margin-bottom: 30px;
             text-align: center;
+            position: relative; z-index: 20;
         }
         .rsvp-serif-stacked span { display: block; }
         .rsvp-serif-stacked .vp-line { margin-left: 20px; color: var(--burgundy-light); }
@@ -213,7 +234,7 @@
             <div class="crown-seal"><i class="fa-solid fa-crown"></i></div>
             <div class="envelope-base"></div>
         </div>
-        <div style="margin-top: 40px; font-family: 'Montserrat'; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; animation: pulse 2s infinite; font-weight: 600; color: var(--burgundy);">Tocar para abrir</div>
+        <div style="margin-top: 40px; font-family: 'Montserrat'; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; animation: pulse 2s infinite; font-weight: 600; color: var(--burgundy); position: relative; z-index: 20;">Tocar para abrir</div>
     </div>
 
     <div class="invitation-card">
@@ -238,7 +259,7 @@
                 <p class="italic-body reveal">
                     "Su presencia, cariño y buenos deseos harán de este día un momento inolvidable para mí. Gracias por acompañarme en esta hermosa etapa de mi vida."
                 </p>
-                <div style="margin: 40px 0; color: var(--gold-soft); letter-spacing: 8px;" class="reveal">✦ ✦ ✦</div>
+                <div style="margin: 40px 0; color: var(--gold-soft); letter-spacing: 8px; position: relative; z-index: 20;" class="reveal">✦ ✦ ✦</div>
                 
                 <span class="label-gold reveal" style="font-size: 17px; margin-bottom: 25px; color: var(--burgundy);">Mis personas favoritas:</span>
                 
@@ -251,7 +272,7 @@
 
             <section class="section bg-cream">
                 <span class="label-gold reveal">¿Cuándo?</span>
-                <div style="font-size: 52px; font-weight: 700; color: var(--burgundy);" class="reveal">01 de Noviembre</div>
+                <div style="font-size: 52px; font-weight: 700; color: var(--burgundy); position: relative; z-index: 20;" class="reveal">01 de Noviembre</div>
                 <span class="label-gold reveal">Domingo — 2026</span>
 
                 <div class="calendar-widget reveal">
@@ -271,13 +292,13 @@
             <section class="section bg-white" style="padding-left:0; padding-right:0;">
                 <div style="padding: 0 30px;">
                     <span class="label-gold reveal">Ceremonia Religiosa — 5:50 PM</span>
-                    <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2;">Parroquia de Ntra. Señora <br> de San Juan de los Lagos</div>
+                    <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2; position: relative; z-index: 20;">Parroquia de Ntra. Señora <br> de San Juan de los Lagos</div>
                 </div>
                 <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.803023549442!2d-98.99593379999999!3d19.3776799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e2c388d28ae5%3A0x77d55f211d8d4d17!2sParroquia%20de%20Nuestra%20Se%C3%B1ora%20de%20San%20Juan%20de%20los%20Lagos!5e0!3m2!1ses-419!2smx!4v1787888245708!5m2!1ses-419!2smx"></iframe>
 
                 <div style="padding: 0 30px;">
                     <span class="label-gold reveal">Recepción — 7:30 PM</span>
-                    <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2;">Salón La Hacienda</div>
+                    <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2; position: relative; z-index: 20;">Salón La Hacienda</div>
                 </div>
                 <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.273687705448!2d-99.03013661733682!3d19.40057729497962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fd4f3eed75f3%3A0x46e5c9224b9f980b!2sSalon%20La%20Hacienda!5e0!3m2!1ses-419!2smx!4v1787888303528!5m2!1ses-419!2smx"></iframe>
             </section>
@@ -297,7 +318,7 @@
                 <div class="reveal">
                     <span class="label-gold">Mesa de Regalos</span>
                     <div class="names-val" style="font-size: 36px;">Lluvia de Sobres</div>
-                    <i class="fa-regular fa-envelope" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 20px;"></i>
+                    <i class="fa-regular fa-envelope" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 20px; position: relative; z-index: 20;"></i>
                 </div>
 
                 <div style="height: 80px;"></div>
@@ -305,7 +326,7 @@
                 <div class="reveal">
                     <span class="label-gold">Ambiente</span>
                     <div class="names-val" style="font-size: 36px;">Mi Playlist</div>
-                    <i class="fa-brands fa-spotify" style="font-size: 60px; color: #1DB954; margin-bottom: 25px;"></i>
+                    <i class="fa-brands fa-spotify" style="font-size: 60px; color: #1DB954; margin-bottom: 25px; position: relative; z-index: 20;"></i>
                     <div style="width: 100%; max-width: 360px; margin: 0 auto 20px;">
                         <iframe style="border-radius:12px; position:relative; z-index:20;" src="https://open.spotify.com/embed/playlist/2BOxf8YKYEaaw9jlPt8lmU?utm_source=generator&si=02e3dbda43cc4540" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
                     </div>
@@ -316,7 +337,7 @@
                 <div class="reveal">
                     <span class="label-gold">Recuerdos</span>
                     <div class="names-val" style="font-size: 36px;">Galería en Vivo</div>
-                    <i class="fa-solid fa-camera-retro" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 25px;"></i>
+                    <i class="fa-solid fa-camera-retro" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 25px; position: relative; z-index: 20;"></i>
                     <br>
                     <a href="https://drive.google.com/drive/folders/1LyUeO7r8_YR9C2rty0oi8R3Q8AyniRvs?usp=drive_link" class="btn-premium">Subir fotos</a>
                 </div>
@@ -347,7 +368,7 @@
             </section>
 
             <footer class="section bg-white" style="padding: 80px 20px;">
-                <h1 style="font-family:'Pinyon Script'; font-size: 60px;">Jade Angélica</h1>
+                <h1 style="font-family:'Pinyon Script'; font-size: 60px; position: relative; z-index: 20;">Jade Angélica</h1>
                 <p class="label-gold" style="margin-top: 20px;">¡Gracias por ser parte de mi vida!</p>
             </footer>
 
@@ -358,39 +379,68 @@
         const WHATSAPP = "525624255711";
         let music;
 
-        /* Generador de Glitter Animado */
+        /* --- NUEVO GENERADOR DE LUCES Y DESTELLOS REALES --- */
         function createGlitter() {
-            const sections = document.querySelectorAll('.section');
+            // Aplicarlo también al sobre de inicio para que se vea mágico desde el principio
+            const sections = document.querySelectorAll('.section, #envelope-screen');
+            
             sections.forEach(section => {
-                const numParticles = 15; // Cantidad de brillitos por sección
-                for (let i = 0; i < numParticles; i++) {
-                    let particle = document.createElement('div');
-                    particle.classList.add('glitter-particle');
+                const numStars = 25; // Cantidad de destellos en estrella
+                const numDots = 25;  // Cantidad de orbes resplandecientes
+                
+                // 1. Generar Destellos (Estrellas de 4 puntas)
+                for (let i = 0; i < numStars; i++) {
+                    let star = document.createElement('div');
+                    star.classList.add('sparkle-star');
                     
-                    let size = Math.random() * 4 + 2; // Tamaño entre 2px y 6px
-                    let posX = Math.random() * 100; // Posición X
-                    let posY = Math.random() * 100; // Posición Y
-                    let duration = Math.random() * 3 + 2; // Duración de la animación (2s - 5s)
-                    let delay = Math.random() * 5; // Retraso
+                    let size = Math.random() * 12 + 8; // Tamaño entre 8px y 20px
+                    let posX = Math.random() * 100;
+                    let posY = Math.random() * 100;
+                    let duration = Math.random() * 3 + 2; 
+                    let delay = Math.random() * 5; 
                     
-                    // Alternar colores entre dorado y rosa
-                    if(Math.random() > 0.5) {
-                        particle.style.backgroundColor = '#EFA6B5'; 
+                    // Asignar color aleatorio (Dorado, Rosa o Blanco)
+                    let colorChance = Math.random();
+                    if(colorChance > 0.66) {
+                        star.classList.add('pink');
+                    } else if(colorChance > 0.33) {
+                        star.classList.add('white');
                     }
                     
-                    particle.style.width = size + 'px';
-                    particle.style.height = size + 'px';
-                    particle.style.left = posX + '%';
-                    particle.style.top = posY + '%';
-                    particle.style.animationDuration = duration + 's';
-                    particle.style.animationDelay = delay + 's';
+                    star.style.width = size + 'px';
+                    star.style.height = size + 'px';
+                    star.style.left = posX + '%';
+                    star.style.top = posY + '%';
+                    star.style.animationDuration = duration + 's';
+                    star.style.animationDelay = delay + 's';
                     
-                    section.appendChild(particle);
+                    section.appendChild(star);
+                }
+
+                // 2. Generar Luces Resplandecientes (Puntos con glow)
+                for (let i = 0; i < numDots; i++) {
+                    let dot = document.createElement('div');
+                    dot.classList.add('sparkle-dot');
+                    
+                    let size = Math.random() * 4 + 2; // Tamaño entre 2px y 6px
+                    let posX = Math.random() * 100;
+                    let posY = Math.random() * 100;
+                    let duration = Math.random() * 4 + 2; 
+                    let delay = Math.random() * 5; 
+                    
+                    dot.style.backgroundColor = Math.random() > 0.5 ? '#EFA6B5' : '#C9A23A'; 
+                    dot.style.width = size + 'px';
+                    dot.style.height = size + 'px';
+                    dot.style.left = posX + '%';
+                    dot.style.top = posY + '%';
+                    dot.style.animationDuration = duration + 's';
+                    dot.style.animationDelay = delay + 's';
+                    
+                    section.appendChild(dot);
                 }
             });
         }
         
-        // Ejecutar los brillitos al cargar la página
         window.addEventListener('DOMContentLoaded', createGlitter);
 
         function toggleMusic() {
