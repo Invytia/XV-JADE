@@ -48,7 +48,6 @@
 
         /* --- NUEVO EFECTO DE DESTELLOS Y LUCES --- */
         
-        /* Estrella de 4 puntas real (Destello) */
         .sparkle-star {
             position: absolute;
             background-color: var(--gold-soft);
@@ -60,7 +59,6 @@
         .sparkle-star.pink { background-color: #EFA6B5; }
         .sparkle-star.white { background-color: #ffffff; }
 
-        /* Orbes de luz resplandecientes */
         .sparkle-dot {
             position: absolute;
             border-radius: 50%;
@@ -130,7 +128,6 @@
         .bg-cream { background-color: var(--bg-cream); }
         .bg-pink { background-color: var(--bg-pink-section); }
 
-        /* Marcador XV Gigante */
         .hero-bg-text {
             position: absolute; top: 80px; left: 50%; transform: translateX(-50%);
             font-family: 'Playfair Display', serif; font-size: 220px; font-weight: 900;
@@ -140,6 +137,7 @@
         .hero-tag { font-family: 'Montserrat'; font-size: 14px; letter-spacing: 5px; text-transform: uppercase; color: var(--gold-soft); margin-bottom: 25px; position: relative; z-index: 1;}
         .hero-name { font-family: 'Pinyon Script', cursive; font-size: clamp(70px, 18vw, 100px); color: var(--burgundy); line-height: 0.8; margin: 10px 0; position: relative; z-index: 1; }
         
+        /* ESTILOS DE FOTOS INTEGRADAS */
         .polaroid-frame {
             width: 85%; max-width: 320px; margin: 50px auto; background: #fff;
             padding: 15px 15px 50px 15px; box-shadow: 0 25px 60px rgba(110, 48, 69, 0.15);
@@ -147,6 +145,17 @@
         }
         .polaroid-frame img { width: 100%; border: 1px solid #eee; display: block; filter: contrast(1.05); }
         .polaroid-frame::after { content: 'Jade Angélica'; position: absolute; bottom: 15px; left: 0; width: 100%; text-align: center; font-family: 'Pinyon Script'; font-size: 28px; color: var(--burgundy-light); }
+
+        .inline-photo {
+            width: 100%;
+            max-width: 320px;
+            margin: 40px auto;
+            border-radius: 8px;
+            box-shadow: 0 15px 40px rgba(110, 48, 69, 0.15);
+            display: block;
+            object-fit: cover;
+            position: relative; z-index: 20;
+        }
 
         /* --- DISEÑO EDITORIAL --- */
         .flourish { width: 220px; margin: 30px auto; opacity: 0.6; position: relative; z-index: 20; }
@@ -184,27 +193,7 @@
         /* DRESS CODE */
         .dress-badge { border: 1px solid var(--rose-gold); padding: 50px 25px; border-radius: 150px 150px 0 0; background: #fff; margin: 30px 0; width: 100%; max-width: 340px; position: relative; z-index: 20;}
         .dress-title { font-size: 36px; font-weight: 700; background: var(--rose-gold-metallic); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
-        
         .dress-img { width: 70px; margin-bottom: 20px; mix-blend-mode: multiply; }
-
-        /* --- GALERÍA --- */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            width: 100%;
-            max-width: 400px;
-            margin: 40px auto;
-            position: relative;
-            z-index: 20;
-        }
-        .gallery-item {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            object-fit: cover;
-            aspect-ratio: 3/4;
-        }
 
         /* --- INVYTIA PLATINUM PASS --- */
         .platinum-pass {
@@ -217,7 +206,7 @@
             border-radius: 12px;
             box-shadow: 0 15px 35px rgba(201, 162, 58, 0.2);
             text-align: center;
-            display: none; /* Mostrado vía JS */
+            display: none; 
             position: relative;
             z-index: 20;
         }
@@ -284,8 +273,9 @@
                 <div class="label-gold reveal" style="font-size: 16px;">Mis XV Años</div>
                 <h1 class="hero-name reveal">Jade Angélica</h1>
                 
+                <!-- FOTO 1 -->
                 <div class="polaroid-frame reveal">
-                    <img src="https://images.unsplash.com/photo-1592816301322-263a99071060?auto=format&fit=crop&q=80&w=800" alt="Jade">
+                    <img src="assets/1.jpg" alt="Jade">
                 </div>
 
                 <svg class="flourish reveal" viewBox="0 0 200 50" fill="none">
@@ -306,12 +296,20 @@
                 
                 <span class="label-gold reveal">Mis abuelos</span>
                 <div class="names-val reveal">Víctor Cortes Bautista <br> & Maricela López Flores</div>
+
+                <!-- FOTO 2 -->
+                <img src="assets/2.jpg" alt="Jade" class="inline-photo reveal">
             </section>
 
             <section class="section bg-cream">
                 <span class="label-gold reveal">¿Cuándo?</span>
                 <div style="font-size: 52px; font-weight: 700; color: var(--burgundy); position: relative; z-index: 20;" class="reveal">01 de Noviembre</div>
                 <span class="label-gold reveal">Domingo — 2026</span>
+
+                <!-- FOTO 3 -->
+                <div class="polaroid-frame reveal" style="transform: rotate(2deg); margin: 40px auto 20px;">
+                    <img src="assets/3.jpg" alt="Jade">
+                </div>
 
                 <div class="calendar-widget reveal">
                     <div style="font-family:'Montserrat'; letter-spacing:4px; font-size:15px; margin-bottom:25px; text-transform: uppercase;">Noviembre 2026</div>
@@ -334,11 +332,16 @@
                 </div>
                 <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.803023549442!2d-98.99593379999999!3d19.3776799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1e2c388d28ae5%3A0x77d55f211d8d4d17!2sParroquia%20de%20Nuestra%20Se%C3%B1ora%20de%20San%20Juan%20de%20los%20Lagos!5e0!3m2!1ses-419!2smx!4v1787888245708!5m2!1ses-419!2smx"></iframe>
 
+                <!-- FOTO 4 -->
+                <div style="padding: 0 30px; width: 100%;">
+                    <img src="assets/4.jpg" alt="Jade" class="inline-photo reveal" style="margin-bottom: 50px;">
+                </div>
+
                 <div style="padding: 0 30px;">
                     <span class="label-gold reveal">Recepción — 7:30 PM</span>
                     <div class="reveal" style="font-family: 'Playfair Display', serif; font-size: 26px; color: var(--burgundy); margin-bottom: 40px; line-height: 1.2; position: relative; z-index: 20;">Salón La Hacienda</div>
                 </div>
-                <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.273687705448!2d-99.03013661733682!3d19.40057729497962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fd4f3eed75f3%3A0x46e5c9224b9f980b!2sSalon%20La%20Hacienda!5e0!3m2!1ses-419!2smx!4v1787888303528!5m2!1ses-419!2smx"></iframe>
+                <iframe class="map-iframe reveal" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.273687705448!2d-99.03013661733682!3d19.40057729497962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fd4f3eed75f3%3A0x46e5c9224b9f980b!2sSalon%20La%20Hacienda!5e0!3m2!1ses-419!2smx!4v1787888303528!5m2!1ses-419!2smx" style="margin-bottom: 0;"></iframe>
             </section>
 
             <section class="section bg-pink">
@@ -350,24 +353,10 @@
                         Favor de reservar los colores <br> <strong>Rosa, Dorado y Champagne</strong> <br> para la festejada.
                     </p>
                 </div>
-            </section>
 
-            <!-- NUEVA SECCIÓN DE GALERÍA -->
-            <section class="section bg-cream">
-                <div class="reveal">
-                    <span class="label-gold">Mis Momentos</span>
-                    <div class="names-val" style="font-size: 36px;">Galería de Fotos</div>
-                </div>
-                
-                <div class="gallery-grid reveal">
-                    <img src="assets/1.jpg" alt="Foto 1" class="gallery-item">
-                    <img src="assets/2.jpg" alt="Foto 2" class="gallery-item">
-                    <img src="assets/3.jpg" alt="Foto 3" class="gallery-item">
-                    <img src="assets/4.jpg" alt="Foto 4" class="gallery-item">
-                    <img src="assets/5.jpg" alt="Foto 5" class="gallery-item">
-                    <img src="assets/6.jpg" alt="Foto 6" class="gallery-item">
-                    <img src="assets/7.jpg" alt="Foto 7" class="gallery-item">
-                    <img src="assets/8.jpg" alt="Foto 8" class="gallery-item">
+                <!-- FOTO 5 -->
+                <div class="polaroid-frame reveal" style="transform: rotate(-2deg); margin: 20px auto 0;">
+                    <img src="assets/5.jpg" alt="Jade">
                 </div>
             </section>
 
@@ -378,7 +367,10 @@
                     <i class="fa-regular fa-envelope" style="font-size: 50px; color: var(--rose-gold); margin-bottom: 20px; position: relative; z-index: 20;"></i>
                 </div>
 
-                <div style="height: 80px;"></div>
+                <!-- FOTO 6 -->
+                <img src="assets/6.jpg" alt="Jade" class="inline-photo reveal">
+
+                <div style="height: 60px;"></div>
 
                 <div class="reveal">
                     <span class="label-gold">Ambiente</span>
@@ -387,6 +379,11 @@
                     <div style="width: 100%; max-width: 360px; margin: 0 auto 20px;">
                         <iframe style="border-radius:12px; position:relative; z-index:20;" src="https://open.spotify.com/embed/playlist/2BOxf8YKYEaaw9jlPt8lmU?utm_source=generator&si=02e3dbda43cc4540" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
                     </div>
+                </div>
+
+                <!-- FOTO 7 -->
+                <div class="polaroid-frame reveal" style="transform: rotate(3deg); margin: 40px auto 0;">
+                    <img src="assets/7.jpg" alt="Jade">
                 </div>
 
                 <div style="height: 80px;"></div>
@@ -423,6 +420,9 @@
                 </select>
                 <button onclick="sendRSVP()" class="btn-premium reveal" style="width: 100%; max-width: 350px;">Confirmar Asistencia</button>
                 
+                <!-- FOTO 8 -->
+                <img src="assets/8.jpg" alt="Jade" class="inline-photo reveal" style="margin-top: 50px;">
+
                 <div style="height: 80px;"></div>
 
                 <div class="reveal" style="width:100%;">
@@ -558,7 +558,7 @@
                 passNameEl.innerHTML = guestDB[idParam].name;
                 passCountEl.innerHTML = `Lugares reservados: <span>${guestDB[idParam].passes}</span>`;
                 passContainer.style.display = 'block';
-                if(rsvpNameInput) rsvpNameInput.value = guestDB[idParam].name; // Relleno automático en RSVP
+                if(rsvpNameInput) rsvpNameInput.value = guestDB[idParam].name; 
             } else if (pParam) {
                 passNameEl.innerHTML = "FAMILIA / INVITADO";
                 passCountEl.innerHTML = `Lugares reservados: <span>${pParam}</span>`;
