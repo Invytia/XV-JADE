@@ -52,7 +52,6 @@
         .sparkle-star {
             position: absolute;
             background-color: var(--gold-soft);
-            /* Crea la forma de destello de luz */
             clip-path: polygon(50% 0%, 55% 45%, 100% 50%, 55% 55%, 50% 100%, 45% 55%, 0% 50%, 45% 45%);
             pointer-events: none;
             z-index: 10;
@@ -188,6 +187,45 @@
         
         .dress-img { width: 70px; margin-bottom: 20px; mix-blend-mode: multiply; }
 
+        /* --- GALERÍA --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+            max-width: 400px;
+            margin: 40px auto;
+            position: relative;
+            z-index: 20;
+        }
+        .gallery-item {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            object-fit: cover;
+            aspect-ratio: 3/4;
+        }
+
+        /* --- INVYTIA PLATINUM PASS --- */
+        .platinum-pass {
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto 50px auto;
+            background: #fff;
+            border: 2px solid var(--gold-soft);
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(201, 162, 58, 0.2);
+            text-align: center;
+            display: none; /* Mostrado vía JS */
+            position: relative;
+            z-index: 20;
+        }
+        .pass-title { font-family: 'Montserrat'; font-size: 13px; letter-spacing: 4px; color: var(--gold-soft); text-transform: uppercase; margin-bottom: 15px; font-weight: 600;}
+        .pass-name { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--burgundy); margin-bottom: 15px; line-height: 1.2;}
+        .pass-count { font-family: 'Montserrat'; font-size: 15px; color: var(--burgundy-light); font-weight: 600;}
+        .pass-count span { font-size: 26px; color: var(--rose-gold); font-family: 'Playfair Display'; margin: 0 5px;}
+
         /* --- RSVP SERIF STACKED --- */
         .rsvp-serif-stacked {
             font-family: 'Playfair Display', serif;
@@ -314,6 +352,25 @@
                 </div>
             </section>
 
+            <!-- NUEVA SECCIÓN DE GALERÍA -->
+            <section class="section bg-cream">
+                <div class="reveal">
+                    <span class="label-gold">Mis Momentos</span>
+                    <div class="names-val" style="font-size: 36px;">Galería de Fotos</div>
+                </div>
+                
+                <div class="gallery-grid reveal">
+                    <img src="assets/1.jpg" alt="Foto 1" class="gallery-item">
+                    <img src="assets/2.jpg" alt="Foto 2" class="gallery-item">
+                    <img src="assets/3.jpg" alt="Foto 3" class="gallery-item">
+                    <img src="assets/4.jpg" alt="Foto 4" class="gallery-item">
+                    <img src="assets/5.jpg" alt="Foto 5" class="gallery-item">
+                    <img src="assets/6.jpg" alt="Foto 6" class="gallery-item">
+                    <img src="assets/7.jpg" alt="Foto 7" class="gallery-item">
+                    <img src="assets/8.jpg" alt="Foto 8" class="gallery-item">
+                </div>
+            </section>
+
             <section class="section bg-white">
                 <div class="reveal">
                     <span class="label-gold">Mesa de Regalos</span>
@@ -348,6 +405,14 @@
                     <span>RS</span>
                     <span class="vp-line">VP</span>
                 </div>
+                
+                <!-- SISTEMA DE PASES PLATINUM INVYTIA -->
+                <div id="platinum-pass" class="platinum-pass reveal active">
+                    <div class="pass-title"><i class="fa-solid fa-ticket"></i> Pase de Entrada</div>
+                    <div id="pass-name" class="pass-name">Nombre del Invitado</div>
+                    <div id="pass-count" class="pass-count">Lugares reservados: <span>2</span></div>
+                </div>
+
                 <span class="label-gold reveal" style="margin-bottom: 45px;">Por favor confirma antes del 15 de Octubre</span>
                 
                 <input type="text" id="rsvp-name" class="input-elegant reveal" placeholder="Escribe tu nombre">
@@ -379,27 +444,23 @@
         const WHATSAPP = "525624255711";
         let music;
 
-        /* --- NUEVO GENERADOR DE LUCES Y DESTELLOS REALES --- */
         function createGlitter() {
-            // Aplicarlo también al sobre de inicio para que se vea mágico desde el principio
             const sections = document.querySelectorAll('.section, #envelope-screen');
             
             sections.forEach(section => {
-                const numStars = 25; // Cantidad de destellos en estrella
-                const numDots = 25;  // Cantidad de orbes resplandecientes
+                const numStars = 25; 
+                const numDots = 25;  
                 
-                // 1. Generar Destellos (Estrellas de 4 puntas)
                 for (let i = 0; i < numStars; i++) {
                     let star = document.createElement('div');
                     star.classList.add('sparkle-star');
                     
-                    let size = Math.random() * 12 + 8; // Tamaño entre 8px y 20px
+                    let size = Math.random() * 12 + 8; 
                     let posX = Math.random() * 100;
                     let posY = Math.random() * 100;
                     let duration = Math.random() * 3 + 2; 
                     let delay = Math.random() * 5; 
                     
-                    // Asignar color aleatorio (Dorado, Rosa o Blanco)
                     let colorChance = Math.random();
                     if(colorChance > 0.66) {
                         star.classList.add('pink');
@@ -417,12 +478,11 @@
                     section.appendChild(star);
                 }
 
-                // 2. Generar Luces Resplandecientes (Puntos con glow)
                 for (let i = 0; i < numDots; i++) {
                     let dot = document.createElement('div');
                     dot.classList.add('sparkle-dot');
                     
-                    let size = Math.random() * 4 + 2; // Tamaño entre 2px y 6px
+                    let size = Math.random() * 4 + 2; 
                     let posX = Math.random() * 100;
                     let posY = Math.random() * 100;
                     let duration = Math.random() * 4 + 2; 
@@ -441,7 +501,75 @@
             });
         }
         
-        window.addEventListener('DOMContentLoaded', createGlitter);
+        function initInvytiaPass() {
+            const guestDB = {
+                "1": { name: "FAM. JARAMILLO CORTES", passes: 2 },
+                "2": { name: "FAM. PUGA JARAMILLO", passes: 2 },
+                "3": { name: "FAM. REYES JARAMILLO", passes: 4 },
+                "4": { name: "ISABEL ESPINOZA", passes: 1 },
+                "5": { name: "ADAN ROMERO Y FAMILIA", passes: 6 },
+                "6": { name: "ROCIO CORTES", passes: 1 },
+                "7": { name: "FAMILIA HERNANDEZ CORTES", passes: 10 },
+                "8": { name: "FAMILIA HERNANDEZ CORTES", passes: 5 },
+                "9": { name: "AMAIRANI CORTES", passes: 3 },
+                "10": { name: "JUAN AMBROSIO", passes: 2 },
+                "11": { name: "PABLO WENCESLAO", passes: 6 },
+                "12": { name: "EDGAR VAZQUEZ Y FAMILIA", passes: 4 },
+                "13": { name: "ISAURA LOPEZ FLORES", passes: 2 },
+                "14": { name: "CARMEN LUNA", passes: 3 },
+                "15": { name: "SANDRA LUNA", passes: 6 },
+                "16": { name: "FAMILIA RIVERA LOPEZ", passes: 10 },
+                "17": { name: "RAFAEL LOPEZ", passes: 4 },
+                "18": { name: "SILVINA FLORES", passes: 1 },
+                "19": { name: "FRANCISCO LOPEZ", passes: 4 },
+                "20": { name: "CLAUDIA LOPEZ", passes: 2 },
+                "21": { name: "CRISTINA LOPEZ", passes: 1 },
+                "22": { name: "FAM. REYES LOPEZ", passes: 4 },
+                "23": { name: "FAM. BETANCOURT LOPEZ", passes: 5 },
+                "24": { name: "FAM. MARQUEZ LOPEZ", passes: 6 },
+                "25": { name: "FAM. SANCHEZ MARTINEZ", passes: 7 },
+                "26": { name: "ΑΝΤΟΝΙΑ MARTINEZ", passes: 2 },
+                "27": { name: "FAM. HERNANDEZ RUEDA", passes: 2 },
+                "28": { name: "FAM. CORAZA HERNANDEZ", passes: 4 },
+                "29": { name: "FAM. HERNANDEZ ESCAMILLA", passes: 3 },
+                "30": { name: "MARTIN GRANILLO", passes: 2 },
+                "31": { name: "ROMUALDO GRANILLO", passes: 4 },
+                "32": { name: "RODRIGO PALAFOX", passes: 2 },
+                "33": { name: "FAM. ROJAS LOPEZ", passes: 4 },
+                "34": { name: "ANDREA ROJAS LÓPEZ", passes: 3 },
+                "35": { name: "NAYELI GARCIA", passes: 2 },
+                "36": { name: "CHRISTIAN GARCIA MOLINA", passes: 3 },
+                "37": { name: "ABDIEL VALDEZ", passes: 1 },
+                "38": { name: "VALERIA RODRIGUEZ", passes: 2 },
+                "39": { name: "ALEJANDRA DIAZ", passes: 2 },
+                "40": { name: "JOSELYNE RUIZ", passes: 2 }
+            };
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const idParam = urlParams.get('id');
+            const pParam = urlParams.get('p');
+            
+            const passContainer = document.getElementById('platinum-pass');
+            const passNameEl = document.getElementById('pass-name');
+            const passCountEl = document.getElementById('pass-count');
+            const rsvpNameInput = document.getElementById('rsvp-name');
+
+            if (idParam && guestDB[idParam]) {
+                passNameEl.innerHTML = guestDB[idParam].name;
+                passCountEl.innerHTML = `Lugares reservados: <span>${guestDB[idParam].passes}</span>`;
+                passContainer.style.display = 'block';
+                if(rsvpNameInput) rsvpNameInput.value = guestDB[idParam].name; // Relleno automático en RSVP
+            } else if (pParam) {
+                passNameEl.innerHTML = "FAMILIA / INVITADO";
+                passCountEl.innerHTML = `Lugares reservados: <span>${pParam}</span>`;
+                passContainer.style.display = 'block';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            createGlitter();
+            initInvytiaPass();
+        });
 
         function toggleMusic() {
             if (!music) music = document.getElementById('bg-music');
